@@ -30,6 +30,8 @@ impl Config {
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let contents = fs::read_to_string(config.file_path)?;
 
+    search(&config.query, &contents).iter().for_each(|j| println!("{}", j));
+
     return Ok(());
 }
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
