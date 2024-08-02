@@ -1,7 +1,5 @@
 use minigrep::*;
 use std::env;
-use std::error::Error;
-use std::fs;
 use std::process;
 
 fn main() {
