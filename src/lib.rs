@@ -17,7 +17,11 @@ impl Config {
 
         let ignore_case = env::var("IGNORE_CASE").is_ok();
 
-        return Ok(Config { query, file_path, ignore_case });
+        return Ok(Config {
+            query,
+            file_path,
+            ignore_case,
+        });
     }
 }
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
@@ -30,21 +34,29 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     };
 
     results.iter().for_each(|j| println!("{}", j));
-    
+
     return Ok(());
 }
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     let mut results = Vec::new();
 
-    contents.lines().for_each(|j| if j.contains(query) {results.push(j)});
-    
+    contents.lines().for_each(|j| {
+        if j.contains(query) {
+            results.push(j)
+        }
+    });
+
     return results;
 }
-pub fn search_case_insensitive<'a>(query: &str, contents: &'a str ) -> Vec<&'a str> {
+pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     let query = query.to_lowercase();
     let mut results = Vec::new();
 
-    contents.lines().for_each(|j| if j.to_lowercase().contains(&query) {results.push(j)});
+    contents.lines().for_each(|j| {
+        if j.to_lowercase().contains(&query) {
+            results.push(j)
+        }
+    });
 
     return results;
 }
@@ -60,7 +72,7 @@ Rust:
 safe, fast, productive
 Pick three.
 Duct tape.";
-        
+
         assert_eq!(vec!["safe, fast, productive"], search(query, contents));
     }
     #[test]
@@ -75,6 +87,6 @@ Trust me.";
         assert_eq!(
             vec!["Rust:", "Trust me."],
             search_case_insensitive(query, contents)
-    );
+        );
     }
 }

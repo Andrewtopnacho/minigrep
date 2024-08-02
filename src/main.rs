@@ -1,8 +1,8 @@
+use minigrep::*;
 use std::env;
+use std::error::Error;
 use std::fs;
 use std::process;
-use std::error::Error;
-use minigrep::*;
 
 fn main() {
     // Return command line arguments and collect them into a vector of strings
@@ -24,4 +24,3 @@ fn main() {
         process::exit(1);
     }
 }
-
